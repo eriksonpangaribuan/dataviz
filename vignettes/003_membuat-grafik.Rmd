@@ -186,21 +186,29 @@ Kita juga dapat membuat *bar plot* untuk keempat kondisi jalan di tiap kota/kabu
 
 ```{r}
 ggplot(jabar_road, aes(x = district, y = road_length, fill = `condition`)) +
-  geom_col(position = "dodge")
+  geom_col(position = "dodge") +
+theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 Kita juga dapat membuat *stacked bar plot* untuk memberikan perhatian pada nilai total panjang jalan keempat kondisi. Kita cukup menghapus argumen `position = dodge` untuk melakukannya.
 
 ```{r}
 ggplot(jabar_road, aes(x = district, y = road_length, fill = condition)) +
-  geom_col()
+  geom_col() +
+  theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 Jika kita lebih tertarik pada kontribusi relatif dari masing-masing kondisi jalan, kita dapat menormalisasi nilai dengan total panjang jalan di tiap kota/kabupaten menggunakan argumen `position = fill`.
 
 ```{r}
 ggplot(jabar_road, aes(x = district, y = road_length, fill = condition)) + 
-geom_col(position = "fill")
+geom_col(position = "fill") + theme(
+      axis.text = element_text(angle = 90)
+      )
   
 ```
 
@@ -209,7 +217,9 @@ Kita juga dapat mengganti label untuk sumbu y sehingga menampilkan persentase. U
 ```{r}
 ggplot(jabar_road, aes(x = district, y = road_length, fill = condition)) +
   geom_col(position = "fill") +
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent) + theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 Selanjutnya kita kembali pada data GDP. Kali ini kita ingin melihat GDP tertinggi di masing-masing provinsi beserta tahun ketika GDP tertinggi di provinsi tersebut terjadi.

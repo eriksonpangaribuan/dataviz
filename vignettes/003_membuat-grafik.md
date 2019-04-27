@@ -316,8 +316,7 @@ Selanjutnya kita akan membuat grafik untuk mengetahui pertumbuhan GDP
 per tahun.
 
 Sebuah grafik yang dibuat menggunakan paket ggplot2 terdiri atas
-*layers* dari elemen-elemen grafik
-tersebut.
+*layers* dari elemen-elemen grafik tersebut.
 
 ``` r
 ggplot(gdp_id)
@@ -331,8 +330,7 @@ digambarkan dalam grafik. Pendefinisian ini dilakukan dalam komponen
 *aesthetic mapping* (`aes()`). Kita ingin menginvestigasi pertumbuhan
 GDP total dari tahun ke tahun. Untuk itu, kita mendefinisikan `year` di
 sumbu x dan `total_gdp_including_oil_and_gas` di sumbu y. Ubahlah
-"\_\_\_" di bawah dengan ekspresi yang
-sesuai.
+"\_\_\_" di bawah dengan ekspresi yang sesuai.
 
 ``` r
 ggplot(gdp_id, aes(x = year, y = total_gdp_including_oil_and_gas))
@@ -457,8 +455,7 @@ gdp_id %>%
 Di bagian selanjutnya, kita akan mempelajari kondisi jalan di Provinsi
 Jawa Barat pada tahun 2000. Untuk melakukannya, pertama-tama kita harus
 mempersiapakan data yang didapat dari dataset indodapoer untuk
-kota/kabupaten di Jawa
-Barat.
+kota/kabupaten di Jawa Barat.
 
 ``` r
 jabar <- c("Bogor, Kab.", "Sukabumi, Kab.", "Cianjur, Kab.", "Bandung, Kab.", "Garut, Kab.", "Tasikmalaya, Kab.", "Ciamis, Kab.", "Kuningan, Kab.", "Cirebon, Kab.", "Majalengka, Kab.", "Sumedang, Kab.", "Indramayu, Kab.", "Subang, Kab.", "Purwakarta, Kab.", "Karawang, Kab.", "Bekasi, Kab.", "Bandung Barat, Kab.", "Pangandaran, Kab.", "Bogor, Kota", "Sukabumi, Kota", "Bandung, Kota", "Cirebon, Kota", "Bekasi, Kota", "Depok, Kota", "Cimahi, Kota", "Tasikmalaya, Kota", "Banjar, Kota")
@@ -514,49 +511,55 @@ Kita juga dapat membuat *bar plot* untuk keempat kondisi jalan di tiap
 kota/kabupaten dengan membuat *grouped bar plot* dan membedakan warna
 kolom-kolomnya. Untuk menghasilkan *grouped bar plot*, kita menggunakan
 argumen `position = "dodge"` pada fungsi `geom_col()`. Gunakan variabel
-`condition` untuk argumen
-`fill`.
+`condition` untuk argumen `fill`.
 
 ``` r
 ggplot(jabar_road, aes(x = district, y = road_length, fill = `condition`)) +
-  geom_col(position = "dodge")
+  geom_col(position = "dodge") +
+theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 <img src="003_membuat-grafik_files/figure-gfm/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 Kita juga dapat membuat *stacked bar plot* untuk memberikan perhatian
 pada nilai total panjang jalan keempat kondisi. Kita cukup menghapus
-argumen `position = dodge` untuk
-melakukannya.
+argumen `position = dodge` untuk melakukannya.
 
 ``` r
 ggplot(jabar_road, aes(x = district, y = road_length, fill = condition)) +
-  geom_col()
+  geom_col() +
+  theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 <img src="003_membuat-grafik_files/figure-gfm/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
 Jika kita lebih tertarik pada kontribusi relatif dari masing-masing
 kondisi jalan, kita dapat menormalisasi nilai dengan total panjang jalan
-di tiap kota/kabupaten menggunakan argumen `position =
-fill`.
+di tiap kota/kabupaten menggunakan argumen `position = fill`.
 
 ``` r
 ggplot(jabar_road, aes(x = district, y = road_length, fill = condition)) + 
-geom_col(position = "fill")
+geom_col(position = "fill") + theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 <img src="003_membuat-grafik_files/figure-gfm/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 Kita juga dapat mengganti label untuk sumbu y sehingga menampilkan
 persentase. Untuk itu, kita menambahkan fungsi dan argumen
-`scale_y_continuous(labels =
-scales::percent)`.
+`scale_y_continuous(labels = scales::percent)`.
 
 ``` r
 ggplot(jabar_road, aes(x = district, y = road_length, fill = condition)) +
   geom_col(position = "fill") +
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent) + theme(
+      axis.text = element_text(angle = 90)
+      )
 ```
 
 <img src="003_membuat-grafik_files/figure-gfm/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
